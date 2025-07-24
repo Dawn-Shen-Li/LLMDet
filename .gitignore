@@ -1,0 +1,12 @@
+*.DS_Store
+# Ignore everything
+/output/
+
+# But not these!
+#!*.py
+
+# Optional: Don't ignore directories (so Git can see into them)
+#!*/
+
+# Optional: Don't ignore this .gitignore file
+#!.gitignore

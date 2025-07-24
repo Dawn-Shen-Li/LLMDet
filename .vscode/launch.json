@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [  
+        {
+            "name": "Training",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/mmdet_train.py",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+                "CUDA_VISIBLE_DEVICES": "0,1"
+            },
+            "args": [
+                "${workspaceFolder}/configs/grounding_dino_swin_t.py"
+            ]
+        },
+        {
+            "name": "Distributed training",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "torch.distributed.launch",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+                "CUDA_VISIBLE_DEVICES": "0,1"
+            },
+            "args": [
+                "--nnodes=1",
+                "--node_rank=0",
+                "--master_addr=127.0.0.1",
+                "--nproc_per_node=2",
+                "--master_port=29500",
+                "${workspaceFolder}/mmdet_train.py",
+                "${workspaceFolder}/configs/grounding_dino_swin_t.py",
+                "--launcher", "pytorch"
+            ]
+        }
+    ]
+}
